@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\bottom_sheet_activity_detail.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\bottom_sheet_activity_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\item_daily_goal.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\item_daily_goal.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\fragment_activity.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\fragment_activity.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\activity_list.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\activity_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\activity_settings.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\item_activity.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\item_activity.xml"
+    },
+    {
+        "merged": "com.steptracker.nativeapp-mergeDebugResources-53:/layout/activity_settings.xml",
+        "source": "com.steptracker.nativeapp-main-56:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\fragment_achievement.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\fragment_achievement.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\fragment_report.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\fragment_report.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\fragment_steps.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\fragment_steps.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\activity_detail.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\activity_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-mergeDebugResources-53:\\layout\\item_achievement.xml",
+        "source": "C:\\Users\\NAM\\.gradle\\daemon\\8.4\\com.steptracker.nativeapp-main-56:\\layout\\item_achievement.xml"
+    }
+]
