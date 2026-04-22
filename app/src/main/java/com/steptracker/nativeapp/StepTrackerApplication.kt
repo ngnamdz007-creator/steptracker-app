@@ -2,6 +2,8 @@ package com.steptracker.nativeapp
 
 import android.app.Application
 import com.steptracker.nativeapp.data.DataRepository
+import com.nphlab.sdk.ads.NphSdk
+import com.nphlab.sdk.config.ConfigSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -12,6 +14,14 @@ class StepTrackerApplication : Application() {
     
     override fun onCreate() {
         super.onCreate()
+        
+        // Init NPH SDK
+        NphSdk.init(
+            context = this,
+            apiKey = "nph_test_valid",
+            configSource = ConfigSource.FIREBASE,
+            enableDebug = BuildConfig.DEBUG
+        )
         
         // Initialize database with default data on first run
         applicationScope.launch {

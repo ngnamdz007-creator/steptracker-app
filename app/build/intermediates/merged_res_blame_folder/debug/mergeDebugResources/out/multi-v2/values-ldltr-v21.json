@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.steptracker.nativeapp-mergeDebugResources-52:/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "com.steptracker.nativeapp-mergeDebugResources-72:/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\NAM\\.gradle\\caches\\transforms-3\\2d362c4c811a71a511c5b1f17abff4e7\\transformed\\appcompat-1.6.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\61217c6c8c0c958a358b3562f2fe00fb\\workspace\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

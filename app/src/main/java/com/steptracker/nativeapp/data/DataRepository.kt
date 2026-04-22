@@ -133,6 +133,18 @@ class DataRepository(context: Context) {
         activityDao.getById(id)
     }
 
+    suspend fun insertActivity(activity: ActivityRecord) = withContext(Dispatchers.IO) {
+        activityDao.insert(activity)
+    }
+
+    suspend fun deleteActivity(activity: ActivityRecord) = withContext(Dispatchers.IO) {
+        activityDao.delete(activity)
+    }
+
+    suspend fun clearAllActivities() = withContext(Dispatchers.IO) {
+        activityDao.deleteAll()
+    }
+
     // Achievements
     fun getAchievements(): Flow<List<Achievement>> = achievementDao.getAll()
 

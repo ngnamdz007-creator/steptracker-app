@@ -20,6 +20,9 @@ import com.google.android.material.chip.ChipGroup
 import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.Achievement
 import com.steptracker.nativeapp.data.DataRepository
+import com.nphlab.sdk.ads.NphAds
+import com.nphlab.sdk.ads.listener.NphRewardListener
+import com.nphlab.sdk.ads.AdError
 import kotlinx.coroutines.launch
 
 class AchievementFragment : Fragment() {
@@ -116,13 +119,15 @@ class AchievementFragment : Fragment() {
         } else {
             allAchievements.filter { it.category == currentCategory }
         }
-        recyclerView.adapter = AchievementAdapter(filtered)
+        recyclerView.adapter = AchievementAdapter(filtered, this)
     }
 }
 
-class AchievementAdapter(private val achievements: List<Achievement>) : 
-    RecyclerView.Adapter<AchievementAdapter.ViewHolder>() {
-    
+class AchievementAdapter(
+    private val achievements: List<Achievement>,
+    private val fragment: AchievementFragment
+) : RecyclerView.Adapter<AchievementAdapter.ViewHolder>() {
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivIcon: ImageView = view.findViewById(R.id.ivIcon)
         val tvTitle: TextView = view.findViewById(R.id.tvTitle)
@@ -164,6 +169,29 @@ class AchievementAdapter(private val achievements: List<Achievement>) :
         } else {
             holder.ivLock.visibility = View.GONE
             holder.itemView.alpha = 1.0f
+        }
+
+        // Show rewarded ad when clicking unlocked achievement
+        holder.itemView.setOnClickListener {
+            if (achievement.unlocked) {
+                showRewardedAd()
+            }
+        }
+    }
+
+    private fun showRewardedAd() {
+        fragment.activity?.let { activity ->
+            NphAds.showRewarded(
+                activity = activity,
+                nameSpace = "nsp_reward_achievement",
+                listener = object : NphRewardListener() {
+                    override fun onRewardEarned(rewardType: String, rewardAmount: Int) {
+                        // Reward earned - could show a toast or update UI
+                    }
+                    override fun onAdDismissed() { }
+                    override fun onAdFailed(error: AdError) { }
+                }
+            )
         }
     }
     

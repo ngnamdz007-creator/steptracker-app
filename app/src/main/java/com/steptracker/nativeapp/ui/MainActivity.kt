@@ -21,6 +21,9 @@ import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.DataRepository
 import com.steptracker.nativeapp.sensor.ActivityTrackingService
 import com.steptracker.nativeapp.sensor.StepCounterManager
+import com.nphlab.sdk.ads.NphAds
+import com.nphlab.sdk.ads.listener.NphAdListener
+import com.nphlab.sdk.ads.AdError
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -86,7 +89,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_activity -> {
-                    showFragment(ActivityFragment())
+                    showInterstitialAd {
+                        showFragment(ActivityFragment())
+                    }
                     true
                 }
                 R.id.nav_report -> {
@@ -111,6 +116,21 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
+    }
+
+    private fun showInterstitialAd(onComplete: () -> Unit) {
+        NphAds.showInterstitial(
+            activity = this,
+            nameSpace = "nsp_inter_main",
+            listener = object : NphAdListener() {
+                override fun onAdDismissed() {
+                    onComplete()
+                }
+                override fun onAdFailed(error: AdError) {
+                    onComplete()
+                }
+            }
+        )
     }
     
     private fun checkPermissions(): Boolean {
@@ -181,6 +201,7 @@ class MainActivity : AppCompatActivity() {
     fun getTrackingService(): ActivityTrackingService? = trackingService
     
     override fun onDestroy() {
+        NphAds.destroy(this)
         super.onDestroy()
         if (serviceBound) {
             unbindService(serviceConnection)

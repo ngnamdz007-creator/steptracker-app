@@ -1,17 +1,18 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.googleServices)
 }
 
 android {
     namespace = "com.steptracker.nativeapp"
-    compileSdk = 34
+        compileSdk = 35
 
     defaultConfig {
         applicationId = "com.steptracker.nativeapp"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -36,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -57,7 +59,7 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
@@ -72,4 +74,30 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // ══════════════════════════════════════════════════
+    // NPH SDK
+    // ══════════════════════════════════════════════════
+    implementation(files("libs/nph-ads-1.0.0-release.aar"))
+    implementation(files("libs/nph-config-1.0.0-release.aar"))
+    implementation(files("libs/nph-track-1.0.0-release.aar"))
+
+    // Google Mobile Ads
+    implementation("com.google.android.gms:play-services-ads:24.0.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // Required dependencies
+    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("androidx.lifecycle:lifecycle-process:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
+    // Tracking SDKs
+    implementation("com.facebook.android:facebook-android-sdk:18.2.3")
+    implementation("com.github.tiktok:tiktok-business-android-sdk:1.6.1")
 }

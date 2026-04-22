@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.ActivityRecord
 import com.steptracker.nativeapp.data.DataRepository
+import com.nphlab.sdk.ads.NphAds
+import android.widget.FrameLayout
 import kotlinx.coroutines.launch
 
 class ActivityListActivity : AppCompatActivity() {
@@ -29,6 +31,12 @@ class ActivityListActivity : AppCompatActivity() {
         setupToolbar()
         setupRecyclerView()
         loadActivities()
+
+        // Load native ad
+        val nativeAdContainer = findViewById<FrameLayout>(R.id.nativeAdContainer)
+        nativeAdContainer?.let {
+            NphAds.loadNativeInto(it, "nsp_native_activity_list")
+        }
     }
     
     private fun setupToolbar() {

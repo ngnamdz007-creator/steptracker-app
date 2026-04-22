@@ -4,12 +4,10 @@ package com.steptracker.nativeapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
@@ -23,16 +21,10 @@ public final class FragmentActivityBinding implements ViewBinding {
   private final ScrollView rootView;
 
   @NonNull
-  public final ImageButton btnFilter;
-
-  @NonNull
   public final MaterialButton btnStartStop;
 
   @NonNull
   public final MaterialButton btnViewAll;
-
-  @NonNull
-  public final RecyclerView rvRecentActivities;
 
   @NonNull
   public final TextView tvDistance;
@@ -49,34 +41,18 @@ public final class FragmentActivityBinding implements ViewBinding {
   @NonNull
   public final TextView tvSteps;
 
-  @NonNull
-  public final TextView tvTotalActivities;
-
-  @NonNull
-  public final TextView tvTotalActivityKm;
-
-  @NonNull
-  public final TextView tvTotalActivitySteps;
-
-  private FragmentActivityBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnFilter,
+  private FragmentActivityBinding(@NonNull ScrollView rootView,
       @NonNull MaterialButton btnStartStop, @NonNull MaterialButton btnViewAll,
-      @NonNull RecyclerView rvRecentActivities, @NonNull TextView tvDistance,
-      @NonNull TextView tvDuration, @NonNull TextView tvKcal, @NonNull TextView tvSpeed,
-      @NonNull TextView tvSteps, @NonNull TextView tvTotalActivities,
-      @NonNull TextView tvTotalActivityKm, @NonNull TextView tvTotalActivitySteps) {
+      @NonNull TextView tvDistance, @NonNull TextView tvDuration, @NonNull TextView tvKcal,
+      @NonNull TextView tvSpeed, @NonNull TextView tvSteps) {
     this.rootView = rootView;
-    this.btnFilter = btnFilter;
     this.btnStartStop = btnStartStop;
     this.btnViewAll = btnViewAll;
-    this.rvRecentActivities = rvRecentActivities;
     this.tvDistance = tvDistance;
     this.tvDuration = tvDuration;
     this.tvKcal = tvKcal;
     this.tvSpeed = tvSpeed;
     this.tvSteps = tvSteps;
-    this.tvTotalActivities = tvTotalActivities;
-    this.tvTotalActivityKm = tvTotalActivityKm;
-    this.tvTotalActivitySteps = tvTotalActivitySteps;
   }
 
   @Override
@@ -106,12 +82,6 @@ public final class FragmentActivityBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnFilter;
-      ImageButton btnFilter = ViewBindings.findChildViewById(rootView, id);
-      if (btnFilter == null) {
-        break missingId;
-      }
-
       id = R.id.btnStartStop;
       MaterialButton btnStartStop = ViewBindings.findChildViewById(rootView, id);
       if (btnStartStop == null) {
@@ -121,12 +91,6 @@ public final class FragmentActivityBinding implements ViewBinding {
       id = R.id.btnViewAll;
       MaterialButton btnViewAll = ViewBindings.findChildViewById(rootView, id);
       if (btnViewAll == null) {
-        break missingId;
-      }
-
-      id = R.id.rvRecentActivities;
-      RecyclerView rvRecentActivities = ViewBindings.findChildViewById(rootView, id);
-      if (rvRecentActivities == null) {
         break missingId;
       }
 
@@ -160,27 +124,8 @@ public final class FragmentActivityBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvTotalActivities;
-      TextView tvTotalActivities = ViewBindings.findChildViewById(rootView, id);
-      if (tvTotalActivities == null) {
-        break missingId;
-      }
-
-      id = R.id.tvTotalActivityKm;
-      TextView tvTotalActivityKm = ViewBindings.findChildViewById(rootView, id);
-      if (tvTotalActivityKm == null) {
-        break missingId;
-      }
-
-      id = R.id.tvTotalActivitySteps;
-      TextView tvTotalActivitySteps = ViewBindings.findChildViewById(rootView, id);
-      if (tvTotalActivitySteps == null) {
-        break missingId;
-      }
-
-      return new FragmentActivityBinding((ScrollView) rootView, btnFilter, btnStartStop, btnViewAll,
-          rvRecentActivities, tvDistance, tvDuration, tvKcal, tvSpeed, tvSteps, tvTotalActivities,
-          tvTotalActivityKm, tvTotalActivitySteps);
+      return new FragmentActivityBinding((ScrollView) rootView, btnStartStop, btnViewAll,
+          tvDistance, tvDuration, tvKcal, tvSpeed, tvSteps);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

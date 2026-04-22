@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.DataRepository
+import com.nphlab.sdk.ads.NphAds
+import com.nphlab.sdk.ads.listener.NphAdListener
+import com.nphlab.sdk.ads.AdError
 import kotlinx.coroutines.launch
 
 class ActivityDetailActivity : AppCompatActivity() {
@@ -69,6 +72,14 @@ class ActivityDetailActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
+        NphAds.showInterstitial(
+            activity = this,
+            nameSpace = "nsp_inter_activity_detail",
+            listener = object : NphAdListener() {
+                override fun onAdDismissed() {}
+                override fun onAdFailed(error: AdError) {}
+            }
+        )
         finish()
         return true
     }

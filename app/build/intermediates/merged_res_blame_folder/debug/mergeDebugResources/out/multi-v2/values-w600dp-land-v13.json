@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.steptracker.nativeapp-mergeDebugResources-52:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.steptracker.nativeapp-mergeDebugResources-72:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\NAM\\.gradle\\caches\\transforms-3\\112416976adf18e7d040858a6c927839\\transformed\\material-1.11.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\0b025be03af29dfbd3f8c6267806bb1b\\workspace\\transformed\\material-1.12.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

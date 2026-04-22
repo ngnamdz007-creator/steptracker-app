@@ -4,6 +4,7 @@ package com.steptracker.nativeapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,14 +22,19 @@ public final class ActivityListBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
+  public final FrameLayout nativeAdContainer;
+
+  @NonNull
   public final RecyclerView recyclerView;
 
   @NonNull
   public final Toolbar toolbar;
 
-  private ActivityListBinding(@NonNull LinearLayout rootView, @NonNull RecyclerView recyclerView,
+  private ActivityListBinding(@NonNull LinearLayout rootView,
+      @NonNull FrameLayout nativeAdContainer, @NonNull RecyclerView recyclerView,
       @NonNull Toolbar toolbar) {
     this.rootView = rootView;
+    this.nativeAdContainer = nativeAdContainer;
     this.recyclerView = recyclerView;
     this.toolbar = toolbar;
   }
@@ -60,6 +66,12 @@ public final class ActivityListBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.nativeAdContainer;
+      FrameLayout nativeAdContainer = ViewBindings.findChildViewById(rootView, id);
+      if (nativeAdContainer == null) {
+        break missingId;
+      }
+
       id = R.id.recyclerView;
       RecyclerView recyclerView = ViewBindings.findChildViewById(rootView, id);
       if (recyclerView == null) {
@@ -72,7 +84,8 @@ public final class ActivityListBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityListBinding((LinearLayout) rootView, recyclerView, toolbar);
+      return new ActivityListBinding((LinearLayout) rootView, nativeAdContainer, recyclerView,
+          toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

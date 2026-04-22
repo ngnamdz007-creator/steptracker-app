@@ -21,6 +21,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.DailyData
 import com.steptracker.nativeapp.data.DataRepository
+import com.nphlab.sdk.ads.NphAds
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -37,7 +38,11 @@ class StepsFragment : Fragment() {
     private lateinit var tvActiveMin: TextView
     private lateinit var rvWeekly: RecyclerView
     private lateinit var rvRecentActivity: RecyclerView
-    
+    private lateinit var tvActivityCount: TextView
+    private lateinit var tvTotalSteps: TextView
+    private lateinit var tvTotalKm: TextView
+    private lateinit var btnActivitySettings: ImageView
+
     private lateinit var activityRepository: DataRepository
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +69,11 @@ class StepsFragment : Fragment() {
         tvActiveMin = view.findViewById(R.id.tvActiveMin)
         rvWeekly = view.findViewById(R.id.rvWeekly)
         rvRecentActivity = view.findViewById(R.id.rvRecentActivity)
-        
+        tvActivityCount = view.findViewById(R.id.tvActivityCount)
+        tvTotalSteps = view.findViewById(R.id.tvTotalSteps)
+        tvTotalKm = view.findViewById(R.id.tvTotalKm)
+        btnActivitySettings = view.findViewById(R.id.btnActivitySettings)
+
         activityRepository = DataRepository(requireContext())
         
         setupCharts()
@@ -74,9 +83,19 @@ class StepsFragment : Fragment() {
         view.findViewById<View>(R.id.btnSettings).setOnClickListener {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
-        
+
         view.findViewById<View>(R.id.btnViewDetail).setOnClickListener {
             startActivity(Intent(requireContext(), ActivityDetailActivity::class.java))
+        }
+
+        btnActivitySettings.setOnClickListener {
+            showActivityOptionsDialog()
+        }
+        
+        // Load banner ad
+        val bannerContainer = view.findViewById<android.widget.FrameLayout>(R.id.bannerAdContainer)
+        bannerContainer?.let {
+            NphAds.loadBannerInto(it, "nsp_bn_home_bottom")
         }
         
         observeData()
@@ -84,7 +103,7 @@ class StepsFragment : Fragment() {
     
     private fun setupRecentActivityRecyclerView() {
         rvRecentActivity.layoutManager = LinearLayoutManager(requireContext())
-        
+
         lifecycleScope.launch {
             activityRepository.getActivities().collect { activities ->
                 rvRecentActivity.adapter = RecentActivityAdapter(
@@ -92,10 +111,90 @@ class StepsFragment : Fragment() {
                     onItemClick = { activityId ->
                         ActivityDetailBottomSheet.newInstance(activityId)
                             .show(childFragmentManager, "activity_detail")
+                    },
+                    onLongClick = { activity ->
+                        showDeleteActivityDialog(activity)
                     }
                 )
+
+                // Update stats
+                updateActivityStats(activities)
             }
         }
+    }
+
+    private fun updateActivityStats(activities: List<com.steptracker.nativeapp.data.ActivityRecord>) {
+        val count = activities.size
+        val totalSteps = activities.sumOf { it.steps }
+        val totalKm = activities.sumOf { it.km }
+
+        tvActivityCount.text = count.toString()
+        tvTotalSteps.text = if (totalSteps >= 1000) "${totalSteps / 1000}k" else totalSteps.toString()
+        tvTotalKm.text = "%.1f".format(totalKm)
+    }
+
+    private fun showActivityOptionsDialog() {
+        val options = arrayOf("Add Manual Activity", "View All Activities", "Clear All Activities")
+
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Activity Options")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> showAddActivityDialog()
+                    1 -> startActivity(Intent(requireContext(), ActivityListActivity::class.java))
+                    2 -> showClearAllActivitiesDialog()
+                }
+            }
+            .show()
+    }
+
+    private fun showAddActivityDialog() {
+        val types = arrayOf("walking", "running", "cycling", "hiking")
+
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Select Activity Type")
+            .setItems(types) { _, which ->
+                lifecycleScope.launch {
+                    val type = types[which]
+                    val newActivity = com.steptracker.nativeapp.data.ActivityRecord(
+                        type = type,
+                        date = java.time.LocalDate.now(),
+                        steps = (1000..5000).random(),  // Random steps for demo
+                        km = (1..5).random().toDouble(),
+                        kcal = (50..300).random(),
+                        durationMinutes = (10..60).random(),
+                        startTime = java.time.LocalDateTime.now()
+                    )
+                    activityRepository.insertActivity(newActivity)
+                }
+            }
+            .show()
+    }
+
+    private fun showDeleteActivityDialog(activity: com.steptracker.nativeapp.data.ActivityRecord) {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Delete Activity")
+            .setMessage("Delete this ${activity.type} activity?")
+            .setPositiveButton("Delete") { _, _ ->
+                lifecycleScope.launch {
+                    activityRepository.deleteActivity(activity)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showClearAllActivitiesDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Clear All Activities")
+            .setMessage("Are you sure you want to delete all activities?")
+            .setPositiveButton("Clear All") { _, _ ->
+                lifecycleScope.launch {
+                    activityRepository.clearAllActivities()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
     
     private fun setupCharts() {
@@ -235,9 +334,10 @@ class WeeklyGoalsAdapter(private val data: List<DailyData>) :
 
 class RecentActivityAdapter(
     private val activities: List<com.steptracker.nativeapp.data.ActivityRecord>,
-    private val onItemClick: ((Long) -> Unit)? = null
+    private val onItemClick: ((Long) -> Unit)? = null,
+    private val onLongClick: ((com.steptracker.nativeapp.data.ActivityRecord) -> Unit)? = null
 ) : RecyclerView.Adapter<RecentActivityAdapter.ViewHolder>() {
-    
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivActivityIcon: ImageView = view.findViewById(R.id.ivActivityIcon)
         val tvActivityType: TextView = view.findViewById(R.id.tvActivityType)
@@ -245,13 +345,13 @@ class RecentActivityAdapter(
         val tvActivitySteps: TextView = view.findViewById(R.id.tvActivitySteps)
         val tvActivityCalories: TextView = view.findViewById(R.id.tvActivityCalories)
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_activity, parent, false)
         return ViewHolder(view)
     }
-    
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val activity = activities[position]
@@ -259,12 +359,18 @@ class RecentActivityAdapter(
         holder.tvActivityDate.text = "${activity.date}, ${activity.startTime?.toLocalTime()}"
         holder.tvActivitySteps.text = context.getString(R.string.steps_format, activity.steps)
         holder.tvActivityCalories.text = context.getString(R.string.kcal_km_format, activity.kcal, activity.km)
-        
-        // Click to view detail - pass activity ID
+
+        // Click to view detail
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(activity.id)
         }
+
+        // Long click to delete
+        holder.itemView.setOnLongClickListener {
+            onLongClick?.invoke(activity)
+            true
+        }
     }
-    
+
     override fun getItemCount() = activities.size
 }

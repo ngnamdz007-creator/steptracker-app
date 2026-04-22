@@ -4,7 +4,9 @@ package com.steptracker.nativeapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,12 @@ public final class FragmentStepsBinding implements ViewBinding {
   private final NestedScrollView rootView;
 
   @NonNull
+  public final FrameLayout bannerAdContainer;
+
+  @NonNull
+  public final ImageView btnActivitySettings;
+
+  @NonNull
   public final ImageButton btnSettings;
 
   @NonNull
@@ -41,6 +49,9 @@ public final class FragmentStepsBinding implements ViewBinding {
 
   @NonNull
   public final TextView tvActiveMin;
+
+  @NonNull
+  public final TextView tvActivityCount;
 
   @NonNull
   public final TextView tvGoal;
@@ -61,27 +72,41 @@ public final class FragmentStepsBinding implements ViewBinding {
   public final TextView tvTime;
 
   @NonNull
+  public final TextView tvTotalKm;
+
+  @NonNull
+  public final TextView tvTotalSteps;
+
+  @NonNull
   public final LineChart weightChart;
 
-  private FragmentStepsBinding(@NonNull NestedScrollView rootView, @NonNull ImageButton btnSettings,
-      @NonNull MaterialButton btnViewDetail, @NonNull PieChart pieChart,
-      @NonNull RecyclerView rvRecentActivity, @NonNull RecyclerView rvWeekly,
-      @NonNull TextView tvActiveMin, @NonNull TextView tvGoal, @NonNull TextView tvKcal,
+  private FragmentStepsBinding(@NonNull NestedScrollView rootView,
+      @NonNull FrameLayout bannerAdContainer, @NonNull ImageView btnActivitySettings,
+      @NonNull ImageButton btnSettings, @NonNull MaterialButton btnViewDetail,
+      @NonNull PieChart pieChart, @NonNull RecyclerView rvRecentActivity,
+      @NonNull RecyclerView rvWeekly, @NonNull TextView tvActiveMin,
+      @NonNull TextView tvActivityCount, @NonNull TextView tvGoal, @NonNull TextView tvKcal,
       @NonNull TextView tvKm, @NonNull TextView tvProgress, @NonNull TextView tvSteps,
-      @NonNull TextView tvTime, @NonNull LineChart weightChart) {
+      @NonNull TextView tvTime, @NonNull TextView tvTotalKm, @NonNull TextView tvTotalSteps,
+      @NonNull LineChart weightChart) {
     this.rootView = rootView;
+    this.bannerAdContainer = bannerAdContainer;
+    this.btnActivitySettings = btnActivitySettings;
     this.btnSettings = btnSettings;
     this.btnViewDetail = btnViewDetail;
     this.pieChart = pieChart;
     this.rvRecentActivity = rvRecentActivity;
     this.rvWeekly = rvWeekly;
     this.tvActiveMin = tvActiveMin;
+    this.tvActivityCount = tvActivityCount;
     this.tvGoal = tvGoal;
     this.tvKcal = tvKcal;
     this.tvKm = tvKm;
     this.tvProgress = tvProgress;
     this.tvSteps = tvSteps;
     this.tvTime = tvTime;
+    this.tvTotalKm = tvTotalKm;
+    this.tvTotalSteps = tvTotalSteps;
     this.weightChart = weightChart;
   }
 
@@ -112,6 +137,18 @@ public final class FragmentStepsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.bannerAdContainer;
+      FrameLayout bannerAdContainer = ViewBindings.findChildViewById(rootView, id);
+      if (bannerAdContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.btnActivitySettings;
+      ImageView btnActivitySettings = ViewBindings.findChildViewById(rootView, id);
+      if (btnActivitySettings == null) {
+        break missingId;
+      }
+
       id = R.id.btnSettings;
       ImageButton btnSettings = ViewBindings.findChildViewById(rootView, id);
       if (btnSettings == null) {
@@ -145,6 +182,12 @@ public final class FragmentStepsBinding implements ViewBinding {
       id = R.id.tvActiveMin;
       TextView tvActiveMin = ViewBindings.findChildViewById(rootView, id);
       if (tvActiveMin == null) {
+        break missingId;
+      }
+
+      id = R.id.tvActivityCount;
+      TextView tvActivityCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvActivityCount == null) {
         break missingId;
       }
 
@@ -184,15 +227,28 @@ public final class FragmentStepsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvTotalKm;
+      TextView tvTotalKm = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalKm == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTotalSteps;
+      TextView tvTotalSteps = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalSteps == null) {
+        break missingId;
+      }
+
       id = R.id.weightChart;
       LineChart weightChart = ViewBindings.findChildViewById(rootView, id);
       if (weightChart == null) {
         break missingId;
       }
 
-      return new FragmentStepsBinding((NestedScrollView) rootView, btnSettings, btnViewDetail,
-          pieChart, rvRecentActivity, rvWeekly, tvActiveMin, tvGoal, tvKcal, tvKm, tvProgress,
-          tvSteps, tvTime, weightChart);
+      return new FragmentStepsBinding((NestedScrollView) rootView, bannerAdContainer,
+          btnActivitySettings, btnSettings, btnViewDetail, pieChart, rvRecentActivity, rvWeekly,
+          tvActiveMin, tvActivityCount, tvGoal, tvKcal, tvKm, tvProgress, tvSteps, tvTime,
+          tvTotalKm, tvTotalSteps, weightChart);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

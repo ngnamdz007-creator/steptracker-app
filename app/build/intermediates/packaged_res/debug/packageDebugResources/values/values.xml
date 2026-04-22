@@ -57,6 +57,11 @@
     <string name="end_location">End Point</string>
     <string name="end_time">End Time</string>
     <string name="english">English</string>
+    <string name="gcm_defaultSenderId" translatable="false">572497243089</string>
+    <string name="google_api_key" translatable="false">AIzaSyAl5Z6TJaMMAgJhhSXAv18p1YW2kWeDHZ0</string>
+    <string name="google_app_id" translatable="false">1:572497243089:android:3012c17abe22ac2130cef0</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAl5Z6TJaMMAgJhhSXAv18p1YW2kWeDHZ0</string>
+    <string name="google_storage_bucket" translatable="false">money-tracker-native.firebasestorage.app</string>
     <string name="gps_signal">GPS Signal Good</string>
     <string name="highest_speed">Highest Speed</string>
     <string name="kcal">Kcal</string>
@@ -72,6 +77,7 @@
     <string name="notifications">Notifications</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="profile">Profile</string>
+    <string name="project_id" translatable="false">money-tracker-native</string>
     <string name="rate_us">Rate Us</string>
     <string name="ready_to_start">Ready to Start</string>
     <string name="receive_daily_reminders">Receive daily reminders</string>
