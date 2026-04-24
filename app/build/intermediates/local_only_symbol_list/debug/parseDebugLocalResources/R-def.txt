@@ -191,6 +191,7 @@ string map_placeholder
 string map_view
 string month
 string more_than_yesterday
+string no_activity
 string notifications
 string privacy_policy
 string profile

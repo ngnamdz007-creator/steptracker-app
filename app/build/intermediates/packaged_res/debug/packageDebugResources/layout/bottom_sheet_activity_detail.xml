@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Walking"
+            android:text="@string/no_activity"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apr 14, 2026"
+        android:text="--/--/----"
         android:textSize="14sp"
         android:textColor="@color/gray_500" />
 
@@ -73,7 +73,7 @@
                     android:id="@+id/tvSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5,234"
+                    android:text="0"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/emerald_500" />
@@ -102,7 +102,7 @@
                     android:id="@+id/tvCalories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="245 kcal"
+                    android:text="0 kcal"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/orange_500" />
@@ -128,10 +128,10 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@id/tvDistance"
+                    android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3.8 km"
+                    android:text="0.0 km"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/blue_500" />
@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="08:00 - 08:45"
+                android:text="--:-- - --:--"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="45 min"
+                android:text="0 min"
                 android:textSize="14sp"
                 android:textColor="@color/gray_500" />
         </LinearLayout>
@@ -211,7 +211,7 @@
                     android:id="@+id/tvAvgSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.2 km/h"
+                    android:text="0.0 km/h"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/cyan_500" />
@@ -243,7 +243,7 @@
                     android:id="@+id/tvMaxSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6.5 km/h"
+                    android:text="0.0 km/h"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/purple_500" />

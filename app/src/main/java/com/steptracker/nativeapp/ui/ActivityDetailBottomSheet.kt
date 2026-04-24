@@ -37,13 +37,18 @@ class ActivityDetailBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        val activityId = arguments?.getLong(ARG_ACTIVITY_ID) ?: return
+        val activityId = arguments?.getLong(ARG_ACTIVITY_ID) ?: -1
+        
+        // Initialize with default zero values
+        resetToDefaultValues(view)
+        
+        if (activityId <= 0) return
         
         lifecycleScope.launch {
             val db = StepTrackerDatabase.getDatabase(requireContext())
             val activity = db.activityDao().getById(activityId) ?: return@launch
             
-            // Bind data
+            // Bind data - only update if activity exists
             view.findViewById<TextView>(R.id.tvTitle).text = activity.type.replaceFirstChar { it.uppercase() }
             view.findViewById<TextView>(R.id.tvDate).text = activity.date.toString()
             
@@ -55,7 +60,7 @@ class ActivityDetailBottomSheet : BottomSheetDialogFragment() {
             view.findViewById<TextView>(R.id.tvCalories).text = "${activity.kcal} kcal"
             view.findViewById<TextView>(R.id.tvDistance).text = "%.2f km".format(activity.km)
             view.findViewById<TextView>(R.id.tvDuration).text = 
-                activity.durationMinutes?.let { mins -> "${mins} min" } ?: "--"
+                activity.durationMinutes?.let { mins -> "${mins} min" } ?: "0 min"
             view.findViewById<TextView>(R.id.tvAvgSpeed).text = "%.1f km/h".format(activity.averageSpeed)
             view.findViewById<TextView>(R.id.tvMaxSpeed).text = "%.1f km/h".format(activity.highestSpeed)
             
@@ -73,5 +78,17 @@ class ActivityDetailBottomSheet : BottomSheetDialogFragment() {
         view.findViewById<View>(R.id.btnClose).setOnClickListener {
             dismiss()
         }
+    }
+    
+    private fun resetToDefaultValues(view: View) {
+        view.findViewById<TextView>(R.id.tvTitle).text = getString(R.string.no_activity)
+        view.findViewById<TextView>(R.id.tvDate).text = "--/--/----"
+        view.findViewById<TextView>(R.id.tvTimeRange).text = "--:-- - --:--"
+        view.findViewById<TextView>(R.id.tvSteps).text = "0"
+        view.findViewById<TextView>(R.id.tvCalories).text = "0 kcal"
+        view.findViewById<TextView>(R.id.tvDistance).text = "0.0 km"
+        view.findViewById<TextView>(R.id.tvDuration).text = "0 min"
+        view.findViewById<TextView>(R.id.tvAvgSpeed).text = "0.0 km/h"
+        view.findViewById<TextView>(R.id.tvMaxSpeed).text = "0.0 km/h"
     }
 }

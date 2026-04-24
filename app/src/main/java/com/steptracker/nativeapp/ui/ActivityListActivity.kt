@@ -64,7 +64,21 @@ class ActivityListActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        finish()
+        android.util.Log.d("ActivityListActivity", "=== Back button clicked ===")
+        NphAds.showInterstitial(
+            activity = this,
+            nameSpace = "nsp_inter_main",
+            listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
+                override fun onAdDismissed() {
+                    android.util.Log.d("ActivityListActivity", "=== Ad dismissed, finishing ===")
+                    finish()
+                }
+                override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
+                    android.util.Log.d("ActivityListActivity", "=== Ad failed, finishing ===")
+                    finish()
+                }
+            }
+        )
         return true
     }
 }

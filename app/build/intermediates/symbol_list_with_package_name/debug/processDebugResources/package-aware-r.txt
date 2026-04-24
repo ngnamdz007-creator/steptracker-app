@@ -4476,6 +4476,7 @@ string native_headline
 string native_media_view
 string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
+string no_activity
 string notifications
 string notifications_permission_confirm
 string notifications_permission_decline

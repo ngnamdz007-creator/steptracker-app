@@ -80,9 +80,10 @@ class StepsFragment : Fragment() {
         setupRecyclerView()
         setupRecentActivityRecyclerView()
         
-        view.findViewById<View>(R.id.btnSettings).setOnClickListener {
+        view.findViewById<View>(R.id.btnSettings)?.setOnClickListener {
+            android.util.Log.d("StepsFragment", "=== Settings button clicked ===")
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
-        }
+        } ?: android.util.Log.e("StepsFragment", "=== Settings button (btnSettings) not found ===")
 
         view.findViewById<View>(R.id.btnViewDetail).setOnClickListener {
             startActivity(Intent(requireContext(), ActivityDetailActivity::class.java))

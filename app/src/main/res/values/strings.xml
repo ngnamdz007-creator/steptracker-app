@@ -61,6 +61,7 @@
     
     <!-- Activity Detail -->
     <string name="activity_detail">Activity Detail</string>
+    <string name="no_activity">No Activity</string>
     <string name="timeline">Timeline</string>
     <string name="highest_speed">Highest Speed</string>
     <string name="average_speed">Average Speed</string>

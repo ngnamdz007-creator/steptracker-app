@@ -30,6 +30,9 @@ class ActivityDetailActivity : AppCompatActivity() {
     
     private fun loadActivityDetails() {
         lifecycleScope.launch {
+            // Initialize with default zero values
+            resetToDefaultValues()
+            
             // Load latest activity or get from intent
             val activityId = intent.getLongExtra("activity_id", -1)
             
@@ -42,6 +45,19 @@ class ActivityDetailActivity : AppCompatActivity() {
                 activities.firstOrNull()?.let { displayActivity(it) }
             }
         }
+    }
+    
+    private fun resetToDefaultValues() {
+        // Reset all values to 0/default state
+        findViewById<TextView>(R.id.tvDuration).text = "00:00"
+        findViewById<TextView>(R.id.tvTotalSteps).text = "0"
+        findViewById<TextView>(R.id.tvCalories).text = "0"
+        findViewById<TextView>(R.id.tvStartTime).text = "--:--"
+        findViewById<TextView>(R.id.tvEndTime).text = "--:--"
+        findViewById<TextView>(R.id.tvStartLocation).text = getString(R.string.start_location)
+        findViewById<TextView>(R.id.tvEndLocation).text = getString(R.string.end_location)
+        findViewById<TextView>(R.id.tvHighestSpeed).text = "0.0 km/h"
+        findViewById<TextView>(R.id.tvAverageSpeed).text = "0.0 km/h"
     }
     
     private fun displayActivity(activity: com.steptracker.nativeapp.data.ActivityRecord) {
@@ -72,15 +88,21 @@ class ActivityDetailActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
+        Log.d("ActivityDetailActivity", "=== Back button clicked ===")
         NphAds.showInterstitial(
             activity = this,
             nameSpace = "nsp_inter_activity_detail",
             listener = object : NphAdListener() {
-                override fun onAdDismissed() {}
-                override fun onAdFailed(error: AdError) {}
+                override fun onAdDismissed() {
+                    Log.d("ActivityDetailActivity", "=== Ad dismissed, finishing ===")
+                    finish()
+                }
+                override fun onAdFailed(error: AdError) {
+                    Log.d("ActivityDetailActivity", "=== Ad failed: ${error.message}, finishing ===")
+                    finish()
+                }
             }
         )
-        finish()
         return true
     }
 }

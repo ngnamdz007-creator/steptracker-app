@@ -3,6 +3,7 @@ package com.steptracker.nativeapp.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -13,6 +14,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.nphlab.sdk.ads.NphAds
+import com.nphlab.sdk.ads.listener.NphAdListener
+import com.nphlab.sdk.ads.AdError
 import com.steptracker.nativeapp.R
 import com.steptracker.nativeapp.data.DataRepository
 import com.steptracker.nativeapp.data.UserSettings
@@ -146,7 +150,22 @@ class SettingsActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        finish()
+        Log.d("SettingsActivity", "=== Back button clicked ===")
+        // Show interstitial ad before going back
+        NphAds.showInterstitial(
+            activity = this,
+            nameSpace = "nsp_inter_main",
+            listener = object : NphAdListener() {
+                override fun onAdDismissed() {
+                    Log.d("SettingsActivity", "=== Ad dismissed, finishing ===")
+                    finish()
+                }
+                override fun onAdFailed(error: AdError) {
+                    Log.d("SettingsActivity", "=== Ad failed, finishing ===")
+                    finish()
+                }
+            }
+        )
         return true
     }
 }

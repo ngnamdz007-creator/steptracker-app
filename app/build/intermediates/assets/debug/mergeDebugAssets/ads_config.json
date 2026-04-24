@@ -1,50 +1,68 @@
 {
-  "appId": "ca-app-pub-3940256099942544~3347511713",
-  "placements": [
-    {
-      "nameSpace": "nsp_ao_splash",
-      "type": "app_open",
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/9257395921"}
-      ]
-    },
+  "isEnableAll": true,
+  "splashAds": {
+    "nameSpace": "nsp_ao_splash",
+    "isEnable": true,
+    "unitIds": [
+      { "unitId": "ca-app-pub-3940256099942544/9257395921", "isEnable": true, "network": "admob" }
+    ],
+    "timeOut": 15000
+  },
+  "resumeAds": {
+    "nameSpace": "nsp_ao_resume",
+    "isEnable": true,
+    "unitIds": [
+      { "unitId": "ca-app-pub-3940256099942544/9257395921", "isEnable": true, "network": "admob" }
+    ]
+  },
+  "interstitialAds": [
     {
       "nameSpace": "nsp_inter_main",
-      "type": "interstitial",
+      "isEnable": true,
       "interval": 25,
       "stepCount": 1,
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/1033173712"}
+      "forceShow": false,
+      "unitIds": [
+        { "unitId": "ca-app-pub-3940256099942544/1033173712", "isEnable": true, "network": "admob" }
       ]
     },
     {
       "nameSpace": "nsp_inter_activity_detail",
-      "type": "interstitial",
+      "isEnable": true,
       "interval": 25,
       "stepCount": 1,
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/1033173712"}
+      "forceShow": false,
+      "unitIds": [
+        { "unitId": "ca-app-pub-3940256099942544/1033173712", "isEnable": true, "network": "admob" }
       ]
-    },
+    }
+  ],
+  "rewardedAds": [
     {
       "nameSpace": "nsp_reward_achievement",
-      "type": "rewarded",
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/5224354917"}
+      "isEnable": true,
+      "unitIds": [
+        { "unitId": "ca-app-pub-3940256099942544/5224354917", "isEnable": true, "network": "admob" }
       ]
-    },
+    }
+  ],
+  "bannerAds": [
     {
       "nameSpace": "nsp_bn_home_bottom",
-      "type": "banner",
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/9214589741"}
+      "isEnable": true,
+      "bannerType": "banner_adaptive",
+      "unitIds": [
+        { "unitId": "ca-app-pub-3940256099942544/9214589741", "isEnable": true, "network": "admob" }
       ]
-    },
+    }
+  ],
+  "nativeAds": [
     {
       "nameSpace": "nsp_native_activity_list",
-      "type": "native",
-      "units": [
-        {"network": "admob", "unitId": "ca-app-pub-3940256099942544/2247696110"}
+      "isEnable": true,
+      "nativeType": "native_medium",
+      "unitIds": [
+        { "unitId": "ca-app-pub-3940256099942544/2247696110", "isEnable": true, "network": "admob" }
       ]
     }
   ]

@@ -49,7 +49,7 @@
                             android:id="@+id/tvDuration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="45:30"
+                            android:text="00:00"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:textColor="@color/emerald_500" />
@@ -78,7 +78,7 @@
                             android:id="@+id/tvTotalSteps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5,234"
+                            android:text="0"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:textColor="@color/blue_500" />
@@ -107,7 +107,7 @@
                             android:id="@+id/tvCalories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="245"
+                            android:text="0"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:textColor="@color/orange_500" />
@@ -183,7 +183,7 @@
                                 android:id="@+id/tvStartTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8:00 AM"
+                                android:text="--:--"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -213,7 +213,7 @@
                                 android:id="@+id/tvEndTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8:45 AM"
+                                android:text="--:--"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -254,7 +254,7 @@
                             android:id="@+id/tvHighestSpeed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6.5 km/h"
+                            android:text="0.0 km/h"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/purple_500" />
@@ -283,7 +283,7 @@
                             android:id="@+id/tvAverageSpeed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4.2 km/h"
+                            android:text="0.0 km/h"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/cyan_500" />
