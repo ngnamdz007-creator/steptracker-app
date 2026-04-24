@@ -1,7 +1,6 @@
 package com.steptracker.nativeapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -30,17 +29,14 @@ class ActivityDetailActivity : AppCompatActivity() {
         // Register back press callback with interstitial ad
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Log.d("ActivityDetailActivity", "=== Back pressed, showing ad ===")
                 NphAds.showInterstitial(
                     activity = this@ActivityDetailActivity,
                     nameSpace = "nsp_inter_activity_detail",
                     listener = object : NphAdListener() {
                         override fun onAdDismissed() {
-                            Log.d("ActivityDetailActivity", "=== Ad dismissed, finishing ===")
                             finish()
                         }
                         override fun onAdFailed(error: AdError) {
-                            Log.d("ActivityDetailActivity", "=== Ad failed, finishing ===")
                             finish()
                         }
                     }

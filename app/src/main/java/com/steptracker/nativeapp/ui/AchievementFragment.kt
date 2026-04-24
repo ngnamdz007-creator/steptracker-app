@@ -175,35 +175,28 @@ class AchievementAdapter(
         // Show rewarded ad when clicking unlocked achievement
         holder.itemView.setOnClickListener {
             if (achievement.unlocked) {
-                android.util.Log.d("NphAds", "=== Rewarded button clicked for achievement: ${achievement.title} ===")
                 showRewardedAd(achievement)
-            } else {
-                android.util.Log.d("NphAds", "=== Achievement ${achievement.title} is locked, cannot show rewarded ad ===")
             }
         }
     }
 
     private fun showRewardedAd(achievement: Achievement) {
         fragment.activity?.let { activity ->
-            android.util.Log.d("NphAds", "=== Calling showRewarded() with namespace: nsp_reward_achievement ===")
             NphAds.showRewarded(
                 activity = activity,
                 nameSpace = "nsp_reward_achievement",
                 listener = object : NphRewardListener() {
                     override fun onRewardEarned(rewardType: String, rewardAmount: Int) {
-                        android.util.Log.d("NphAds", "=== Reward earned: $rewardAmount $rewardType ===")
                         // Reward earned - grant to user
                         Toast.makeText(activity, "Reward earned!", Toast.LENGTH_SHORT).show()
                     }
                     override fun onAdDismissed() {
-                        android.util.Log.d("NphAds", "=== Rewarded ad dismissed ===")
                     }
                     override fun onAdFailed(error: AdError) {
-                        android.util.Log.d("NphAds", "=== Rewarded ad failed: ${error.message} ===")
                     }
                 }
             )
-        } ?: android.util.Log.e("NphAds", "=== Activity is null, cannot show rewarded ad ===")
+        }
     }
     
     override fun getItemCount() = achievements.size

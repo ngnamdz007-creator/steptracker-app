@@ -3,7 +3,6 @@ package com.steptracker.nativeapp.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -79,17 +78,14 @@ class SettingsActivity : AppCompatActivity() {
         // Register back press callback with interstitial ad
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Log.d("SettingsActivity", "=== Back pressed, showing ad ===")
                 NphAds.showInterstitial(
                     activity = this@SettingsActivity,
-                    nameSpace = "nsp_inter_main",
+                    nameSpace = "nsp_inter_settings",
                     listener = object : NphAdListener() {
                         override fun onAdDismissed() {
-                            Log.d("SettingsActivity", "=== Ad dismissed, finishing ===")
                             finish()
                         }
                         override fun onAdFailed(error: AdError) {
-                            Log.d("SettingsActivity", "=== Ad failed, finishing ===")
                             finish()
                         }
                     }

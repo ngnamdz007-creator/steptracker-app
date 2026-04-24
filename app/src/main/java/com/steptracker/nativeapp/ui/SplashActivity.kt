@@ -2,7 +2,6 @@ package com.steptracker.nativeapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.steptracker.nativeapp.R
 import com.nphlab.sdk.ads.NphAds
@@ -13,19 +12,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Log.d("SplashActivity", "=== onCreate - About to call showSplash ===")
-
         // Show App Open ad and navigate to MainActivity when done
-        val startTime = System.currentTimeMillis()
         try {
-            Log.d("NphAds", "=== Calling showSplash() ===")
             NphAds.showSplash(this) {
-                val elapsed = System.currentTimeMillis() - startTime
-                Log.d("NphAds", "=== Splash callback — elapsed: ${elapsed}ms ===")
                 navigateToMain()
             }
         } catch (e: Exception) {
-            Log.e("NphAds", "=== showSplash FAILED: ${e.message}", e)
             navigateToMain()
         }
     }

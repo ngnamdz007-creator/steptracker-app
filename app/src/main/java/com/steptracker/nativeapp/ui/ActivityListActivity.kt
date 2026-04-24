@@ -42,17 +42,14 @@ class ActivityListActivity : AppCompatActivity() {
         // Register back press callback with interstitial ad
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                android.util.Log.d("ActivityListActivity", "=== Back pressed, showing ad ===")
                 NphAds.showInterstitial(
                     activity = this@ActivityListActivity,
                     nameSpace = "nsp_inter_main",
                     listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
                         override fun onAdDismissed() {
-                            android.util.Log.d("ActivityListActivity", "=== Ad dismissed, finishing ===")
                             finish()
                         }
                         override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
-                            android.util.Log.d("ActivityListActivity", "=== Ad failed, finishing ===")
                             finish()
                         }
                     }
