@@ -18,14 +18,14 @@ class SplashActivity : AppCompatActivity() {
         // Show App Open ad and navigate to MainActivity when done
         val startTime = System.currentTimeMillis()
         try {
-            NphAds.showSplash(this) {
+            Log.d("NphAds", "=== Calling showSplash() ===")
+            NphAds.showSplash(this) { isAdShown ->
                 val elapsed = System.currentTimeMillis() - startTime
-                Log.d("SplashActivity", "=== showSplash callback after ${elapsed}ms - navigating to Main ===")
+                Log.d("NphAds", "=== Splash callback — isAdShown: $isAdShown, elapsed: ${elapsed}ms ===")
                 navigateToMain()
             }
         } catch (e: Exception) {
-            Log.e("SplashActivity", "=== showSplash FAILED: ${e.message}", e)
-            // If ad fails, still navigate to main after short delay
+            Log.e("NphAds", "=== showSplash FAILED: ${e.message}", e)
             navigateToMain()
         }
     }
