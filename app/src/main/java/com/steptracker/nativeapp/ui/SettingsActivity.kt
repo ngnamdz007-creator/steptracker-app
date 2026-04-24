@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
@@ -70,10 +71,31 @@ class SettingsActivity : AppCompatActivity() {
         btnPrivacy = findViewById(R.id.btnPrivacy)
         
         // Toolbar
-        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let {
-            setSupportActionBar(it)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let { toolbar ->
+            setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
+        
+        // Register back press callback with interstitial ad
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Log.d("SettingsActivity", "=== Back pressed, showing ad ===")
+                NphAds.showInterstitial(
+                    activity = this@SettingsActivity,
+                    nameSpace = "nsp_inter_main",
+                    listener = object : NphAdListener() {
+                        override fun onAdDismissed() {
+                            Log.d("SettingsActivity", "=== Ad dismissed, finishing ===")
+                            finish()
+                        }
+                        override fun onAdFailed(error: AdError) {
+                            Log.d("SettingsActivity", "=== Ad failed, finishing ===")
+                            finish()
+                        }
+                    }
+                )
+            }
+        })
     }
     
     private fun setupListeners() {
@@ -150,22 +172,8 @@ class SettingsActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        Log.d("SettingsActivity", "=== Back button clicked ===")
-        // Show interstitial ad before going back
-        NphAds.showInterstitial(
-            activity = this,
-            nameSpace = "nsp_inter_main",
-            listener = object : NphAdListener() {
-                override fun onAdDismissed() {
-                    Log.d("SettingsActivity", "=== Ad dismissed, finishing ===")
-                    finish()
-                }
-                override fun onAdFailed(error: AdError) {
-                    Log.d("SettingsActivity", "=== Ad failed, finishing ===")
-                    finish()
-                }
-            }
-        )
+        // Back press is handled by OnBackPressedDispatcher
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }

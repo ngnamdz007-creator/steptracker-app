@@ -1,7 +1,9 @@
 package com.steptracker.nativeapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.steptracker.nativeapp.R
@@ -20,10 +22,31 @@ class ActivityDetailActivity : AppCompatActivity() {
         
         repository = DataRepository(this)
         
-        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let {
-            setSupportActionBar(it)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let { toolbar ->
+            setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
+        
+        // Register back press callback with interstitial ad
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Log.d("ActivityDetailActivity", "=== Back pressed, showing ad ===")
+                NphAds.showInterstitial(
+                    activity = this@ActivityDetailActivity,
+                    nameSpace = "nsp_inter_activity_detail",
+                    listener = object : NphAdListener() {
+                        override fun onAdDismissed() {
+                            Log.d("ActivityDetailActivity", "=== Ad dismissed, finishing ===")
+                            finish()
+                        }
+                        override fun onAdFailed(error: AdError) {
+                            Log.d("ActivityDetailActivity", "=== Ad failed, finishing ===")
+                            finish()
+                        }
+                    }
+                )
+            }
+        })
         
         loadActivityDetails()
     }
@@ -88,21 +111,8 @@ class ActivityDetailActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        Log.d("ActivityDetailActivity", "=== Back button clicked ===")
-        NphAds.showInterstitial(
-            activity = this,
-            nameSpace = "nsp_inter_activity_detail",
-            listener = object : NphAdListener() {
-                override fun onAdDismissed() {
-                    Log.d("ActivityDetailActivity", "=== Ad dismissed, finishing ===")
-                    finish()
-                }
-                override fun onAdFailed(error: AdError) {
-                    Log.d("ActivityDetailActivity", "=== Ad failed: ${error.message}, finishing ===")
-                    finish()
-                }
-            }
-        )
+        // Back press is handled by OnBackPressedDispatcher
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }

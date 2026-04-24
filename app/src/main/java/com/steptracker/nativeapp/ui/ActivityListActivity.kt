@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,11 +38,32 @@ class ActivityListActivity : AppCompatActivity() {
         nativeAdContainer?.let {
             NphAds.loadNativeInto(it, "nsp_native_activity_list")
         }
+        
+        // Register back press callback with interstitial ad
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                android.util.Log.d("ActivityListActivity", "=== Back pressed, showing ad ===")
+                NphAds.showInterstitial(
+                    activity = this@ActivityListActivity,
+                    nameSpace = "nsp_inter_main",
+                    listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
+                        override fun onAdDismissed() {
+                            android.util.Log.d("ActivityListActivity", "=== Ad dismissed, finishing ===")
+                            finish()
+                        }
+                        override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
+                            android.util.Log.d("ActivityListActivity", "=== Ad failed, finishing ===")
+                            finish()
+                        }
+                    }
+                )
+            }
+        })
     }
     
     private fun setupToolbar() {
-        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let {
-            setSupportActionBar(it)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let { toolbar ->
+            setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = getString(R.string.recent_activities)
         }
@@ -64,21 +86,8 @@ class ActivityListActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        android.util.Log.d("ActivityListActivity", "=== Back button clicked ===")
-        NphAds.showInterstitial(
-            activity = this,
-            nameSpace = "nsp_inter_main",
-            listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
-                override fun onAdDismissed() {
-                    android.util.Log.d("ActivityListActivity", "=== Ad dismissed, finishing ===")
-                    finish()
-                }
-                override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
-                    android.util.Log.d("ActivityListActivity", "=== Ad failed, finishing ===")
-                    finish()
-                }
-            }
-        )
+        // Back press is handled by OnBackPressedDispatcher
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }
