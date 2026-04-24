@@ -19,20 +19,27 @@ class StepTrackerApplication : Application() {
         Log.d("StepTrackerApplication", "=== APPLICATION onCreate START ===")
         
         // Init NPH SDK - Load config from Firebase (fallback to assets/ads_config.json)
+        // ISSUE #2: Firebase Remote Config cần có key 'nph_ads_config' được setup bởi mentor
+        // ISSUE #3: Step Tracker đã bị bind signature trên server (hash: B7BB61D923C9FAA...)
+        //   → Nếu build trên máy khác hoặc dùng keystore khác sẽ bị "Signature mismatch"
+        //   → Liên hệ mentor để reset signature hoặc dùng cùng keystore
+        // Fallback chain khi Firebase chưa setup: Firebase → Cache → Local assets
         try {
-            // Try manual config loading from assets
+            // Verify local config exists (used as Firebase fallback)
             val configJson = assets.open("ads_config.json").bufferedReader().use { it.readText() }
-            Log.d("StepTrackerApplication", "=== Config JSON loaded: ${configJson.length} chars ===")
+            Log.d("StepTrackerApplication", "=== Local ads_config.json loaded: ${configJson.length} chars ===")
             
             NphSdk.init(
                 context = this,
                 apiKey = "nph_VTpE0KYrSQdsI6X0Qx5VyH_ydVhdIzBV",
                 configSource = ConfigSource.FIREBASE,  // v1.0.1 only supports FIREBASE
-                enableDebug = true
+                enableDebug = true  // Force debug mode - logs all NPH SDK events
             )
-            Log.d("StepTrackerApplication", "=== NphSdk.init() CALLED SUCCESS ===")
+            Log.d("StepTrackerApplication", "=== NphSdk.init() called ===")
+            Log.d("StepTrackerApplication", "=== SDK will try: Firebase → Cache → Local assets ===")
         } catch (e: Exception) {
             Log.e("StepTrackerApplication", "=== NphSdk.init() FAILED: ${e.message}", e)
+            Log.e("StepTrackerApplication", "=== Possible causes: License key mismatch, Signature mismatch, or Network error ===")
         }
         
         // Initialize database with default data on first run
