@@ -19,9 +19,9 @@ class SplashActivity : AppCompatActivity() {
         val startTime = System.currentTimeMillis()
         try {
             Log.d("NphAds", "=== Calling showSplash() ===")
-            NphAds.showSplash(this) { isAdShown ->
+            NphAds.showSplash(this) {
                 val elapsed = System.currentTimeMillis() - startTime
-                Log.d("NphAds", "=== Splash callback — isAdShown: $isAdShown, elapsed: ${elapsed}ms ===")
+                Log.d("NphAds", "=== Splash callback — elapsed: ${elapsed}ms ===")
                 navigateToMain()
             }
         } catch (e: Exception) {

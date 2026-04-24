@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -174,10 +175,10 @@ class AchievementAdapter(
         // Show rewarded ad when clicking unlocked achievement
         holder.itemView.setOnClickListener {
             if (achievement.unlocked) {
-                android.util.Log.d("NphAds", "=== Rewarded button clicked for achievement: ${achievement.name} ===")
+                android.util.Log.d("NphAds", "=== Rewarded button clicked for achievement: ${achievement.title} ===")
                 showRewardedAd(achievement)
             } else {
-                android.util.Log.d("NphAds", "=== Achievement ${achievement.name} is locked, cannot show rewarded ad ===")
+                android.util.Log.d("NphAds", "=== Achievement ${achievement.title} is locked, cannot show rewarded ad ===")
             }
         }
     }
