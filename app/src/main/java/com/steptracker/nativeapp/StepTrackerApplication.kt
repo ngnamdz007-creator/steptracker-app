@@ -21,7 +21,7 @@ class StepTrackerApplication : Application() {
                 context = this,
                 apiKey = "nph_VTpE0KYrSQdsI6X0Qx5VyH_ydVhdIzBV",
                 configSource = ConfigSource.FIREBASE,
-                enableDebug = true
+                enableDebug = BuildConfig.DEBUG
             )
         } catch (e: Exception) {
             // SDK init failed
