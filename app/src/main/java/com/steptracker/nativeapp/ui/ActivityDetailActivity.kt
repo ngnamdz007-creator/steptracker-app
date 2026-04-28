@@ -29,17 +29,25 @@ class ActivityDetailActivity : AppCompatActivity() {
             }
         }
         
-        // Register back press callback with interstitial ad
+        // Register back press callback with interstitial ad and timeout fallback
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            private var isHandling = false
             override fun handleOnBackPressed() {
+                if (isHandling) return
+                isHandling = true
+                val handler = android.os.Handler(mainLooper)
+                val fallback = Runnable { if (!isFinishing) finish() }
+                handler.postDelayed(fallback, 3000)
                 NphAds.showInterstitial(
                     activity = this@ActivityDetailActivity,
                     nameSpace = "nsp_inter_activity_detail",
                     listener = object : NphAdListener() {
                         override fun onAdDismissed() {
+                            handler.removeCallbacks(fallback)
                             finish()
                         }
                         override fun onAdFailed(error: AdError) {
+                            handler.removeCallbacks(fallback)
                             finish()
                         }
                     }

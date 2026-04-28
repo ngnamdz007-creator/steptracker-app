@@ -39,17 +39,25 @@ class ActivityListActivity : AppCompatActivity() {
             NphAds.loadNativeInto(it, "nsp_native_activity_list")
         }
         
-        // Register back press callback with interstitial ad
+        // Register back press callback with interstitial ad and timeout fallback
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            private var isHandling = false
             override fun handleOnBackPressed() {
+                if (isHandling) return
+                isHandling = true
+                val handler = android.os.Handler(mainLooper)
+                val fallback = Runnable { if (!isFinishing) finish() }
+                handler.postDelayed(fallback, 3000)
                 NphAds.showInterstitial(
                     activity = this@ActivityListActivity,
                     nameSpace = "nsp_inter_main",
                     listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
                         override fun onAdDismissed() {
+                            handler.removeCallbacks(fallback)
                             finish()
                         }
                         override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
+                            handler.removeCallbacks(fallback)
                             finish()
                         }
                     }
