@@ -21,25 +21,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\b89292bb3b367663137d15ec80ddecc2\\workspace\\transformed\\jetified-nph-ads-1.0.1-release\\res\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,6",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,104,211",
-                        "endLines": "2,5,8",
-                        "endColumns": "48,24,24",
-                        "endOffsets": "99,206,313"
-                    },
-                    "to": {
-                        "startLines": "471,13121,13124",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "24149,796753,796860",
-                        "endLines": "471,13123,13126",
-                        "endColumns": "48,24,24",
-                        "endOffsets": "24193,796855,796962"
-                    }
-                },
-                {
                     "source": "C:\\Users\\NAM\\CascadeProjects\\step-tracker-native\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
                         "startLines": "11,2",
@@ -166,6 +147,25 @@
                         "endLines": "35,672,673,674,675,1114,1115,1116,2476,5826,5829,5832,10699",
                         "endColumns": "51,60,61,61,63,58,56,53,12,12,12,12,24",
                         "endOffsets": "1687,34742,34804,34866,34930,66308,66365,66419,176054,409984,410110,410238,704806"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\32eeb1c4c808583c17d82bb7b333b098\\workspace\\transformed\\jetified-nph-ads-1.0.1-release\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,6",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,104,211",
+                        "endLines": "2,5,8",
+                        "endColumns": "48,24,24",
+                        "endOffsets": "99,206,313"
+                    },
+                    "to": {
+                        "startLines": "471,13121,13124",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "24149,796753,796860",
+                        "endLines": "471,13123,13126",
+                        "endColumns": "48,24,24",
+                        "endOffsets": "24193,796855,796962"
                     }
                 },
                 {
