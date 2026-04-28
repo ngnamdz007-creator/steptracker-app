@@ -24,6 +24,7 @@ import com.steptracker.nativeapp.sensor.StepCounterManager
 import com.nphlab.sdk.ads.NphAds
 import com.nphlab.sdk.ads.listener.NphAdListener
 import com.nphlab.sdk.ads.AdError
+import androidx.activity.OnBackPressedCallback
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -66,6 +67,19 @@ class MainActivity : AppCompatActivity() {
         stepCounterManager = StepCounterManager.getInstance(this)
         
         setupBottomNavigation()
+        
+        // Handle back button: go to home tab or minimize app
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // If not on home tab → switch to home tab
+                if (bottomNav.selectedItemId != R.id.nav_steps) {
+                    bottomNav.selectedItemId = R.id.nav_steps
+                } else {
+                    // Already on home → minimize app instead of closing
+                    moveTaskToBack(true)
+                }
+            }
+        })
         
         if (checkPermissions()) {
             initializeApp()
