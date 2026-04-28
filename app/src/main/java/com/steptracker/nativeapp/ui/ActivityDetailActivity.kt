@@ -24,6 +24,9 @@ class ActivityDetailActivity : AppCompatActivity() {
         findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let { toolbar ->
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            toolbar.setNavigationOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
         
         // Register back press callback with interstitial ad

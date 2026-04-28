@@ -62,6 +62,9 @@ class ActivityListActivity : AppCompatActivity() {
         findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.let { toolbar ->
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            toolbar.setNavigationOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
             supportActionBar?.title = getString(R.string.recent_activities)
         }
     }
