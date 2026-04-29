@@ -4,7 +4,7 @@
             "outputFile": "com.steptracker.nativeapp-mergeDebugResources-72:/values-es-rES/values-es-rES.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\b9d2aebcd201d8bb596f32923e18c603\\workspace\\transformed\\jetified-facebook-login-18.2.3\\res\\values-es-rES\\values-es-rES.xml",
+                    "source": "C:\\Users\\NAM\\.gradle\\caches\\9.3.1\\transforms\\522c56ac322af40e7809aa8593a9141e\\workspace\\transformed\\jetified-facebook-login-18.2.3\\res\\values-es-rES\\values-es-rES.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

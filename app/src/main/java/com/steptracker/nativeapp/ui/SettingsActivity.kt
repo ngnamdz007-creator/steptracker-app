@@ -179,7 +179,6 @@ class SettingsActivity : AppCompatActivity() {
     }
     
     override fun onSupportNavigateUp(): Boolean {
-        // Back press is handled by OnBackPressedDispatcher
         onBackPressedDispatcher.onBackPressed()
         return true
     }
